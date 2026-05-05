@@ -30,6 +30,17 @@ An analyst can now:
 
 ## 3. Data Sources & Trust Decisions
 
+## How to navigate
+
+- `models/staging` → cleaned source data  
+- `models/intermediate` → requester resolution logic  
+- `models/marts` → final analytical models  
+
+Key models:
+- `fact_support_tickets`
+- `fact_investor_support_profile`
+- `fact_partner_close_pressure`
+
 ### Sources used
 
 * `platform_investors` → investor base
