@@ -276,7 +276,13 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 14. Summary
+## 14. Example Analysis
+
+> Example queries demonstrating how the models can be used to generate insights (including investor concentration and close pressure patterns) are available here:
+
+👉 [analyses/key_insights.sql](analyses/key_insights.sql)
+
+## 15. Summary
 
 This model transforms fragmented support and platform data into:
 
