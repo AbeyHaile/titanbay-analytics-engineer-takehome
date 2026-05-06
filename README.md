@@ -28,9 +28,7 @@ An analyst can now:
 
 ---
 
-## 3. Data Sources & Trust Decisions
-
-## How to navigate
+## 3. How to navigate
 
 - `models/staging` → cleaned source data  
 - `models/intermediate` → requester resolution logic  
@@ -39,7 +37,7 @@ An analyst can now:
 Key models:
 - `fact_support_tickets`
 - `fact_investor_support_profile`
-- `fact_partner_close_pressure`
+- `fact_partner_close_pressure` > Note: This model includes only tickets raised directly by investors, not relationship managers, to avoid incorrect attribution.
 
 ### Sources used
 
