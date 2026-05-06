@@ -292,7 +292,11 @@ All SQL, modelling decisions, and insights were validated against the data and a
 
 👉 [analyses/key_insights.sql](analyses/key_insights.sql)
 
-## 16. Summary
+## 16. Reflection
+
+The core limitation is the lack of a shared identifier between Freshdesk and the platform data, which forces reliance on email matching and leads to ambiguous attribution (e.g. relationship managers acting on behalf of investors). The ideal long-term fix would be to introduce structured identifiers at ticket creation (e.g. `investor_id`, `entity_id`, `partner_id`) and enforce their capture in the support workflow. This would remove ambiguity, improve join reliability, and enable more accurate attribution and analysis.
+
+## 17. Summary
 
 This model transforms fragmented support and platform data into:
 
