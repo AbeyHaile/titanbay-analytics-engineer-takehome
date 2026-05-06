@@ -1,6 +1,10 @@
 
 # 📊 Investor Support & Close Pressure Analysis
 
+## Key Insight
+
+A small subset of investors (~3%) generates over half (~53%) of support tickets, and only ~27% of fund close events generate activity — showing demand is highly concentrated and event-driven.
+
 ## 1. Business Problem
 
 Investor Services (IS) needs to understand:
@@ -35,9 +39,9 @@ An analyst can now:
 - `models/marts` → final analytical models  
 
 Key models:
-- `fact_support_tickets`
-- `fact_investor_support_profile`
-- `fact_partner_close_pressure` > Note: This model includes only tickets raised directly by investors, not relationship managers, to avoid incorrect attribution.
+- `fact_support_tickets` > This model retains all tickets (investor, RM, and unknown) to preserve the full support activity without forcing attribution.
+- `fact_investor_support_profile` > This model includes only tickets raised directly by investors, not relationship managers, to avoid incorrect attribution.
+- `fact_partner_close_pressure` > This model uses `resolved_partner_id` and includes only tickets that can be confidently attributed to a partner to avoid incorrect aggregation.
 
 ### Sources used
 
@@ -50,9 +54,7 @@ Key models:
 ### Key data issues
 
 * No shared ID between tickets and platform users
-* Matching relies on:
-
-  * `requester_email`
+* Matching relies on `requester_email`
 * `partner_label` is inconsistent (~44% null)
 
 ### Decision
@@ -175,7 +177,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 #### I. Support demand is highly concentrated
 
-* **3.2% of investors generate 52.8% of tickets**
+* **~3% of investors generate ~53% of support tickets (highly concentrated demand)**
 
 > A small group drives the majority of workload.
 
