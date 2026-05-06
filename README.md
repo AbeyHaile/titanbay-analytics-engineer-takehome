@@ -102,7 +102,7 @@ staging → intermediate → marts
 
 ### Marts
 
-#### i. `fact_support_tickets`
+#### I. `fact_support_tickets`
 
 * Grain: **1 row per ticket**
 * Adds:
@@ -111,7 +111,7 @@ staging → intermediate → marts
   * resolution flags
   * time-to-resolution
 
-#### ii. `fact_investor_support_profile`
+#### II. `fact_investor_support_profile`
 
 * Grain: **1 row per investor**
 * Aggregates:
@@ -125,7 +125,7 @@ staging → intermediate → marts
   * frustration status
   * engagement status
 
-#### iii. `fact_partner_close_pressure`
+#### III. `fact_partner_close_pressure`
 
 * Grain: **partner_id + close_id**
 * Links tickets to fund closes using a time window
@@ -173,7 +173,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ## 8. Key Insights
 
-#### i. Support demand is highly concentrated
+#### I. Support demand is highly concentrated
 
 * **3.2% of investors generate 52.8% of tickets**
 
@@ -181,7 +181,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-#### ii. Most fund events are operationally quiet
+#### II. Most fund events are operationally quiet
 
 * Only **~27% of fund closes** generate any tickets in the final week
 
@@ -189,7 +189,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-#### iii. AUM does not predict support pressure
+#### III. AUM does not predict support pressure
 
 * High-value closes often have **zero tickets**
 * Lower-value closes can generate activity
@@ -198,7 +198,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-#### iv. Critical events are rare
+#### IV. Critical events are rare
 
 * Only **7 closes (~4.5%)** are both:
 
