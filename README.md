@@ -274,13 +274,23 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 14. Example Analysis
+## 14. How I worked with AI tools
+
+I used AI tools (e.g. ChatGPT, Gemini, NotebookLM, Cursor) as a lightweight support tool during the task, mainly to:
+
+- Sanity check modelling decisions (e.g. grain, joins, incremental logic)
+- Improve clarity and structure of the README
+- Generate and refine YAML documentation and tests
+
+All SQL, modelling decisions, and insights were validated against the data and adjusted based on actual outputs.
+
+## 15. Example Analysis
 
 > Example queries demonstrating how the models can be used to generate insights (including investor concentration and close pressure patterns) are available here:
 
 👉 [analyses/key_insights.sql](analyses/key_insights.sql)
 
-## 15. Summary
+## 16. Summary
 
 This model transforms fragmented support and platform data into:
 
