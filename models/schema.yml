@@ -201,7 +201,7 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['investor', 'relationship_manager', 'unknown']
+              values: ['investor', 'relationship_manager', 'internal', 'unknown']
 
       - name: status
         description: Current ticket status.
@@ -230,7 +230,7 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['investor', 'relationship_manager', 'unknown']
+              values: ['investor', 'relationship_manager', 'internal', 'unknown']
 
       - name: status
         description: Current ticket status.
@@ -303,6 +303,8 @@ models:
           - relationships:
               to: ref('stg_platform_fund_closes')
               field: close_id
-
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "total_tickets_in_close_window = tickets_8_to_14_days_before_close + tickets_0_to_7_days_before_close + tickets_1_to_7_days_after_close"
 
 
