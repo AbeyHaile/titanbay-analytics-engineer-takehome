@@ -215,6 +215,9 @@ models:
 
   - name: fact_support_tickets
     description: Fact table at ticket grain (1 row per Freshdesk ticket), enriched with requester resolution and partner attribution.
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "status not in ('resolved','closed') or resolved_at is not null"
     columns:
       - name: ticket_id
         description: Unique Freshdesk ticket identifier (primary key).
@@ -275,6 +278,9 @@ models:
 
   - name: fact_partner_close_pressure
     description: Partner-close level fact (1 row per partner_id + close_id) measuring ticket pressure around scheduled close dates.
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "total_tickets_in_close_window = tickets_8_to_14_days_before_close + tickets_0_to_7_days_before_close + tickets_1_to_7_days_after_close"
     columns:
       - name: partner_close_support_pressure_sk
         description: Surrogate key for partner-close grain.
