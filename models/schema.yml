@@ -181,3 +181,122 @@ models:
         description: Total committed AUM for the close in GBP.
         tests:
           - not_null
+
+  - name: int_ticket_requester_resolution
+    description: Intermediate ticket enrichment model resolving requester identity (investor/RM/unknown) and partner attribution via email matching.
+    columns:
+      - name: ticket_id
+        description: Unique Freshdesk ticket identifier (1 row per ticket).
+        tests:
+          - not_null
+          - unique
+
+      - name: requester_email
+        description: Normalized requester email used for identity resolution.
+        tests:
+          - not_null
+
+      - name: requester_type
+        description: Derived requester classification.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['investor', 'relationship_manager', 'unknown']
+
+      - name: status
+        description: Current ticket status.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['open', 'pending', 'resolved', 'closed']
+
+      - name: resolved_partner_id
+        description: Best-available partner attribution (investor partner preferred; else RM partner).
+
+  - name: fact_support_tickets
+    description: Fact table at ticket grain (1 row per Freshdesk ticket), enriched with requester resolution and partner attribution.
+    columns:
+      - name: ticket_id
+        description: Unique Freshdesk ticket identifier (primary key).
+        tests:
+          - not_null
+          - unique
+
+      - name: requester_type
+        description: Resolved requester classification based on email matching.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['investor', 'relationship_manager', 'unknown']
+
+      - name: status
+        description: Current ticket status.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['open', 'pending', 'resolved', 'closed']
+
+      - name: priority
+        description: Ticket priority.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['low', 'medium', 'high', 'urgent']
+
+  - name: fact_investor_support_profile
+    description: Aggregated investor support profile at investor grain (1 row per investor).
+    columns:
+      - name: investor_id
+        description: Unique investor identifier (primary key).
+        tests:
+          - not_null
+          - unique
+
+      - name: support_tier
+        description: Segment based on total ticket volume.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['high_touch', 'regular', 'low_touch', 'no_support_contact']
+
+      - name: frustration_status
+        description: Risk segment based on urgent volume and slow resolution/backlog ageing.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['high_risk', 'elevated', 'stable']
+
+      - name: engagement_status
+        description: Engagement segment based on recency of last ticket.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['active', 'dormant', 'never_contacted']
+
+  - name: fact_partner_close_pressure
+    description: Partner-close level fact (1 row per partner_id + close_id) measuring ticket pressure around scheduled close dates.
+    columns:
+      - name: partner_close_support_pressure_sk
+        description: Surrogate key for partner-close grain.
+        tests:
+          - not_null
+          - unique
+
+      - name: partner_id
+        description: Partner associated with the close.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_platform_partners')
+              field: partner_id
+
+      - name: close_id
+        description: Fund close identifier.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_platform_fund_closes')
+              field: close_id
+
+
+
