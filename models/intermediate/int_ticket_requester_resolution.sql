@@ -3,6 +3,7 @@ WITH tickets AS (
     SELECT
         ticket_id,
         LOWER(TRIM(requester_email)) AS requester_email,
+        SPLIT_PART(LOWER(TRIM(requester_email)), '@', 2) AS requester_email_domain,
         requester_name,
         subject,
         status,
@@ -45,6 +46,7 @@ SELECT
     CASE
         WHEN i.investor_id IS NOT NULL THEN 'investor'
         WHEN r.rm_id IS NOT NULL THEN 'relationship_manager'
+        WHEN t.requester_email_domain LIKE 'titanbay.%' THEN 'internal'
         ELSE 'unknown'
     END AS requester_type,
     i.partner_id,
