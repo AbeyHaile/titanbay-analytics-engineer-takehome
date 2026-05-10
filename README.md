@@ -23,7 +23,12 @@ The challenge is that:
 
 ## 2. Business Context
 
-Before writing any SQL, I first built a mental model of Titanbay's investment journey — how partners, relationship managers, entities, and investors relate to one another. This helped me design the data model around the real business structure and correctly attribute each support ticket to the appropriate partner.
+Before writing any SQL, I first built a mental model of Titanbay's investment journey — how partners, relationship managers, entities, and investors relate to one another. 
+
+```text
+Partner → Relationship Manager (RM) → Entity → Investor
+```
+This helped me design the data model around the real business structure and correctly attribute each support ticket to the appropriate partner.
 
 ## 3. What this model enables
 
