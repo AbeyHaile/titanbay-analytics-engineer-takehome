@@ -21,7 +21,11 @@ The challenge is that:
 
 ---
 
-## 2. What this model enables
+## 2. Business Context
+
+Before writing any SQL, I first built a mental model of Titanbay's investment journey — how partners, relationship managers, entities, and investors relate to one another. This helped me design the data model around the real business structure and correctly attribute each support ticket to the appropriate partner.
+
+## 3. What this model enables
 
 An analyst can now:
 
@@ -32,7 +36,7 @@ An analyst can now:
 
 ---
 
-## 3. How to navigate
+## 4. How to navigate
 
 - `models/staging` → cleaned source data  
 - `models/intermediate` → requester resolution logic  
@@ -69,7 +73,7 @@ Fallback:
 
 ---
 
-## 4. Entity Resolution
+## 5. Entity Resolution
 
 Tickets can be raised by:
 
@@ -83,7 +87,7 @@ Tickets can be raised by:
 
 ---
 
-## 5. Modelling Approach
+## 6. Modelling Approach
 
 Structured in layers:
 
@@ -142,7 +146,7 @@ staging → intermediate → marts
 
 ---
 
-## 6. Grain Management
+## 7. Grain Management
 
 All models have explicit grains:
 
@@ -164,7 +168,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 7. Data Quality Decisions
+## 8. Data Quality Decisions
 
 * Do not use `partner_label` (inconsistent)
 * Do not force unmatched tickets into investors
@@ -173,7 +177,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 8. Key Insights
+## 9. Key Insights
 
 #### I. Support demand is highly concentrated
 
@@ -211,7 +215,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 9. Assumptions
+## 10. Assumptions
 
 * Email is a reliable proxy for identity
 * Tickets represent meaningful support demand
@@ -220,7 +224,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 10. Incremental & Performance
+## 11. Incremental & Performance
 
 * `fact_support_tickets` is incremental:
 
@@ -230,7 +234,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 11. Tests
+## 12. Tests
 
 * Unique + not null on primary keys
 * Accepted values on:
@@ -244,7 +248,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 12. Short-term vs Long-term Improvements
+## 13. Short-term vs Long-term Improvements
 
 ### Short-term (this model)
 
@@ -263,7 +267,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 13. What I would build next
+## 14. What I would build next
 
 * RM-level performance model
 * Ticket categorisation (NLP or tag standardisation)
@@ -276,7 +280,7 @@ DATEDIFF(...) BETWEEN -7 AND 14
 
 ---
 
-## 14. How I worked with AI tools
+## 15. How I worked with AI tools
 
 I used AI tools (e.g. ChatGPT, Gemini, NotebookLM, Cursor) as a lightweight support tool during the task, mainly to:
 
@@ -286,17 +290,17 @@ I used AI tools (e.g. ChatGPT, Gemini, NotebookLM, Cursor) as a lightweight supp
 
 All SQL, modelling decisions, and insights were validated against the data and adjusted based on actual outputs.
 
-## 15. Example Analysis
+## 16. Example Analysis
 
 > Example queries demonstrating how the models can be used to generate insights (including investor concentration and close pressure patterns) are available here:
 
 👉 [analyses/key_insights.sql](analyses/key_insights.sql)
 
-## 16. Reflection
+## 17. Reflection
 
 The core limitation is the lack of a shared identifier between Freshdesk and the platform data, which forces reliance on email matching and leads to ambiguous attribution (e.g. relationship managers acting on behalf of investors). The ideal long-term fix would be to introduce structured identifiers at ticket creation (e.g. `investor_id`, `entity_id`, `partner_id`) and enforce their capture in the support workflow. This would remove ambiguity, improve join reliability, and enable more accurate attribution and analysis.
 
-## 17. Summary
+## 18. Summary
 
 This model transforms fragmented support and platform data into:
 
