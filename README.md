@@ -28,6 +28,15 @@ Before writing any SQL, I first built a mental model of Titanbay's investment jo
 ```text
 Partner → Relationship Manager (RM) → Entity → Investor
 ```
+
+```text
+15 Partners
+└── 44 Relationship Managers
+    └── 772 Legal Entities
+        └── 1,253 Investors
+            └── Support Tickets raised by both Investors and Relationship Managers
+```
+
 This helped me design the data model around the real business structure and correctly attribute each support ticket to the appropriate partner.
 
 ## 3. What this model enables
@@ -82,13 +91,16 @@ Fallback:
 
 Tickets can be raised by:
 
-| Type                 | Handling                      |
-| -------------------- | ----------------------------- |
-| Investor             | Directly mapped via email     |
-| Relationship Manager | Mapped via RM email           |
-| Unknown              | Retained but not force-mapped |
+| Type                 | Handling                                                  |
+|----------------------|-----------------------------------------------------------|
+| Investor             | Directly mapped to an investor via email                  |
+| Relationship Manager | Mapped to a relationship manager via email                |
+| Internal             | Identified using the `titanbay.*` email domain            |
+| Unknown              | Retained but not force-mapped when attribution is unclear |
 
-> I do not attempt to force attribution where linkage is uncertain to avoid incorrect joins.
+> If an email matches both an investor and a relationship manager, investor attribution takes precedence because the primary business questions focus on investor support behaviour.
+>
+> I do not attempt to force attribution where linkage is uncertain, preferring high-confidence mappings over broader but potentially inaccurate joins.
 
 ---
 
